@@ -20,8 +20,12 @@ import {
   CalendarEvent,
   CalendarEventAction,
   CalendarEventTimesChangedEvent,
-  CalendarView
+  CalendarView,
+  DAYS_OF_WEEK,
+  CalendarDateFormatter
 } from 'angular-calendar';
+
+import { CustomDateFormatter } from './CustomDateFormatter';
 
 const colors: any = {
   red: {
@@ -42,9 +46,23 @@ const colors: any = {
   selector: 'mwl-demo-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter
+    }
+  ]
 })
 export class AppComponent {
+
+  locale: string = 'pt';
+
+  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
+
+  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
+
+
   @ViewChild('modalContent')
   modalContent: TemplateRef<any>;
 
